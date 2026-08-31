@@ -11,9 +11,8 @@
  */
 
 import 'package:flutter/material.dart';
-import 'pantalla_bienvenida.dart';
-//pantalla_bienvenida.dart
-//tarjeta_momentos.dart
+import 'pantalla_personal.dart';
+
 void main() {
   runApp(const AppAuditoriaHigiene());
 }
@@ -29,13 +28,7 @@ class AppAuditoriaHigiene extends StatelessWidget {
       theme: ThemeData(
         primaryColor: const Color(0xFF0F6E56),
       ),
-      // Se instanca la Pantalla 1
-      home: const PantallaBienvenida(),
+      home: const PantallaPersonal(),
     );
   }
 }
-
-// Cambiar de:
-//home: const PantallaBienvenida(),
-// A:
-//home: const TarjetaCincoMomentos(),
