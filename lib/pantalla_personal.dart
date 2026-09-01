@@ -24,7 +24,7 @@ class PantallaPersonal extends StatelessWidget {
             ),
             tarjetaCampo(
               'NOMBRE COMPLETO DEL OBSERVADOR',
-              'Isaac F.',
+              'Thiago Benítez Flores',
             ),
             const SizedBox(height: 24),
             _tituloSeccion('PERSONAL OBSERVADO'),
