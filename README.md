@@ -15,11 +15,8 @@ Manos Seguras es una aplicación móvil desarrollada con **Flutter** y **Dart** 
 | Nombre | Correo |
 |---|---|
 | Calderón Vargas Rey | 023200192e@uandina.edu.pe |
-| --- | --- |
 | Andia Palomino Rodrigo Inti | 023100172b@uandina.edu.pe |
-| --- | --- |
 | name | @ |
-| --- | --- |
 
 <!-- TODO: Agregar a los demás integrantes si es proyecto de equipo -->
 
