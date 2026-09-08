@@ -16,6 +16,7 @@ import 'tarjeta_momentos.dart';
 import 'pantalla_establecimiento.dart';
 import 'pantalla_personal.dart';
 import 'pantalla_oportunidades.dart';
+import 'pantalla_resumen.dart';
 
 void main() {
   runApp(const AppAuditoriaHigiene());
@@ -41,6 +42,7 @@ class AppAuditoriaHigiene extends StatelessWidget {
         '/establecimiento': (context) => const PantallaEstablecimiento(),
         '/personal': (context) => const PantallaPersonal(),
         '/oportunidades': (context) => const PantallaOportunidades(),
+        '/resumen': (context) => const PantallaResumen(),
       },
     );
   }
