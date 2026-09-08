@@ -3,6 +3,7 @@
 // Tarjeta de registro de una oportunidad de higiene de manos.
 // Estructura de tres columnas usando Row + Expanded (Sesion 7).
 // Proporcion flex 1:2:1 basada en el formulario oficial GERESA Cusco.
+
 class TarjetaOportunidad extends StatelessWidget {
   final String numero;
   final List<String> indicaciones;
@@ -22,8 +23,7 @@ class TarjetaOportunidad extends StatelessWidget {
     // Si la tarjeta no esta activa, el texto se muestra atenuado.
     // Esto replica visualmente la logica condicional del formulario oficial
     // sin requerir StatefulWidget (que se vera en la Unidad II).
-    final Color colorTexto =
-        activa ? Colors.black87 : Colors.grey.shade400;
+    final Color colorTexto = activa ? Colors.black87 : Colors.grey.shade400;
 
     return Container(
       padding: const EdgeInsets.all(14),
@@ -39,26 +39,43 @@ class TarjetaOportunidad extends StatelessWidget {
           // Columna 1: numero de oportunidad (flex 1 = 25% del ancho)
           Expanded(
             flex: 1,
-            child: Text(
-              numero,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: colorTexto,
-              ),
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Text(
+                  numero,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: colorTexto,
+                  ),
+                ),
+
+                // Indicador visual del estado de la oportunidad.
+                // Verde: oportunidad activa.
+                // Rojo: oportunidad inactiva.
+                Positioned(
+                  top: -4,
+                  right: 10,
+                  child: Container(
+                    width: 12,
+                    height: 12,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: activa ? Colors.green : Colors.red,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
+
           // Columna 2: indicaciones (flex 2 = 50% del ancho).
           // El mayor espacio permite que textos normativos largos
           // se muestren en dos lineas sin truncarse.
-          Expanded(
-            flex: 2,
-            child: _listaOpciones(indicaciones, colorTexto),
-          ),
+          Expanded(flex: 2, child: _listaOpciones(indicaciones, colorTexto)),
+
           // Columna 3: acciones (flex 1 = 25% del ancho)
-          Expanded(
-            flex: 1,
-            child: _listaOpciones(acciones, colorTexto),
-          ),
+          Expanded(flex: 1, child: _listaOpciones(acciones, colorTexto)),
         ],
       ),
     );
@@ -76,22 +93,16 @@ class TarjetaOportunidad extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(
-                Icons.radio_button_unchecked,
-                size: 16,
-                color: colorTexto,
-              ),
+              Icon(Icons.radio_button_unchecked, size: 16, color: colorTexto),
               const SizedBox(width: 6),
+
               // Flexible permite que el Text ocupe el espacio restante
               // y salte de linea cuando el texto es largo,
               // sin desbordar el Row.
               Flexible(
                 child: Text(
                   texto,
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: colorTexto,
-                  ),
+                  style: TextStyle(fontSize: 12, color: colorTexto),
                 ),
               ),
             ],
