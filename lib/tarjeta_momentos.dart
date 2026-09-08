@@ -1,20 +1,33 @@
 import 'package:flutter/material.dart';
 
+// Pantalla de Los 5 Momentos para la Higiene de Manos.
+// Guia N.4: se reemplaza la lista vertical por una nube de etiquetas
+// usando el widget Wrap (Sesion 8) para que las pastillas se
+// redistribuyan automaticamente en multiples filas cuando el ancho
+// de la pantalla se reduce.
 class TarjetaCincoMomentos extends StatelessWidget {
   const TarjetaCincoMomentos({super.key});
+
+  // Lista de los 5 momentos segun la OMS / MINSA.
+  static const List<String> _momentos = [
+    'Antes del contacto con el paciente',
+    'Antes de realizar una tarea aseptica',
+    'Despues del riesgo de exposicion a fluidos',
+    'Despues del contacto con el paciente',
+    'Despues del contacto con el entorno',
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Fondo gris claro para que la tarjeta blanca resalte con su sombra
       backgroundColor: const Color(0xFFF1EFE8),
       body: Center(
         child: Container(
-          // JUSTIFICACIÓN 4: Se usa EdgeInsets.symmetric para aplicar margin
-          // horizontal y vertical uniforme, separando la tarjeta de los bordes de la pantalla.
+          // JUSTIFICACION: EdgeInsets.symmetric separa la tarjeta
+          // de los bordes de la pantalla de forma uniforme.
           margin: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 40.0),
-          // JUSTIFICACIÓN 5: Se usa EdgeInsets.all para dar un padding interno
-          // uniforme a toda la tarjeta, evitando que el título y las filas toquen los bordes redondeados.
+          // JUSTIFICACION: EdgeInsets.all da un padding interno
+          // uniforme evitando que el contenido toque los bordes redondeados.
           padding: const EdgeInsets.all(20.0),
           decoration: BoxDecoration(
             color: Colors.white,
@@ -28,8 +41,7 @@ class TarjetaCincoMomentos extends StatelessWidget {
             ],
           ),
           child: Column(
-            mainAxisSize: MainAxisSize
-                .min, // Para que la tarjeta envuelva justo su contenido
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
@@ -40,20 +52,20 @@ class TarjetaCincoMomentos extends StatelessWidget {
                   color: Color(0xFF0F6E56),
                 ),
               ),
-              const SizedBox(
-                  height: 20.0), // Separación entre el título y la lista
+              const SizedBox(height: 20.0),
 
-              // Llamadas al método extraído para cada momento
-              _itemMomento(1, Icons.accessibility_new,
-                  'Antes del contacto con el paciente'),
-              _itemMomento(
-                  2, Icons.healing, 'Antes de realizar una tarea aséptica'),
-              _itemMomento(3, Icons.water_drop,
-                  'Después del riesgo de exposición a fluidos'),
-              _itemMomento(
-                  4, Icons.person, 'Después del contacto con el paciente'),
-              _itemMomento(5, Icons.cleaning_services,
-                  'Después del contacto con el entorno'),
+              // GUIA 4 — Nube de etiquetas con Wrap.
+              // spacing: separacion horizontal entre etiquetas en la misma fila.
+              // runSpacing: separacion vertical entre filas de etiquetas.
+              // Las etiquetas se redistribuyen automaticamente al reducir
+              // el ancho de la ventana, sin necesidad de logica explicita.
+              Wrap(
+                spacing: 10.0,
+                runSpacing: 10.0,
+                children: List.generate(_momentos.length, (indice) {
+                  return _etiquetaMomento(indice + 1, _momentos[indice]);
+                }),
+              ),
             ],
           ),
         ),
@@ -61,57 +73,46 @@ class TarjetaCincoMomentos extends StatelessWidget {
     );
   }
 
-  // FASE 4: Extracción de método privado para los items repetidos
-  Widget _itemMomento(int numero, IconData icono, String texto) {
-    // JUSTIFICACIÓN 6: Se usa EdgeInsets.only para aplicar un padding
-    // exclusivamente en la parte inferior, separando visualmente cada fila de la siguiente.
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
+  // Cada momento se muestra como una pastilla (Container con bordes
+  // redondeados) usando el verde institucional de la app.
+  Widget _etiquetaMomento(int numero, String texto) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+      decoration: BoxDecoration(
+        color: const Color(0xFF0F6E56),
+        borderRadius: BorderRadius.circular(20.0),
+      ),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          // Número del momento
+          // Numero del momento en un circulo blanco
           Container(
-            width: 28,
-            height: 28,
+            width: 22,
+            height: 22,
             decoration: const BoxDecoration(
-              color: Color(0xFF0F6E56),
+              color: Colors.white,
               shape: BoxShape.circle,
             ),
             child: Center(
               child: Text(
                 '$numero',
                 style: const TextStyle(
-                  color: Colors.white,
+                  color: Color(0xFF0F6E56),
                   fontWeight: FontWeight.bold,
-                  fontSize: 14,
+                  fontSize: 12,
                 ),
               ),
             ),
           ),
-          const SizedBox(
-              width: 12.0), // Separación horizontal entre el número y el ícono
-
-          // Ícono del momento
-          Icon(
-            icono,
-            color: const Color(0xFF0F6E56),
-            size: 24.0,
-          ),
-          const SizedBox(
-              width: 12.0), // Separación horizontal entre el ícono y el texto
-
+          const SizedBox(width: 8.0),
           // Texto del momento
-          // NOTA: Se omite Expanded por restricción de la Sesión 7.
-          // El texto es lo suficientemente corto para caber en una línea en la mayoría de pantallas.
-          Flexible(
-            // Cambio a Flexible para evitar overflow si el texto es largo en pantallas pequeñas
-            child: Text(
-              texto,
-              style: const TextStyle(fontSize: 14.0, color: Colors.black87),
-              overflow: TextOverflow.ellipsis,
-              maxLines: 2,
+          Text(
+            texto,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 13,
             ),
-          )
+          ),
         ],
       ),
     );
