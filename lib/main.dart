@@ -11,6 +11,7 @@
  */
 
 import 'package:flutter/material.dart';
+
 import 'pantalla_bienvenida.dart';
 import 'tarjeta_momentos.dart';
 import 'pantalla_establecimiento.dart';
@@ -29,21 +30,9 @@ class AppAuditoriaHigiene extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'ManosSeguras',
-      theme: ThemeData(
-        primaryColor: const Color(0xFF0F6E56),
-      ),
-      // Rutas nombradas para navegar entre las pantallas de la app.
-      // La pantalla inicial es la de bienvenida (Guia N.2).
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const PantallaBienvenida(),
-        '/momentos': (context) => const TarjetaCincoMomentos(),
-        '/establecimiento': (context) => const PantallaEstablecimiento(),
-        '/personal': (context) => const PantallaPersonal(),
-        '/oportunidades': (context) => const PantallaOportunidades(),
-        '/resumen': (context) => const PantallaResumen(),
-      },
+      title: 'Auditoría de Higiene de Manos',
+      theme: ThemeData(primaryColor: const Color(0xFF0F6E56)),
+      home: const PantallaResumen(),
     );
   }
 }
